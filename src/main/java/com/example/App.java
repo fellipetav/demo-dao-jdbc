@@ -18,6 +18,7 @@ public final class App {
         // Assim, meu programa não conhece a implementação, mas apenas a interface.
         // É também uma forma de injeção de independência sem explicitar a implementação.
 
+        System.out.println("=== TEST 1: seller findById ===");
         System.out.println(sellerDao.findById(3));
     }
 }
