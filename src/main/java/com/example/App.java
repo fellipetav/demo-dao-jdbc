@@ -6,6 +6,7 @@ import model.dao.DaoFactory;
 import model.dao.SellerDao;
 // import model.entities.Department;
 // import model.entities.Seller;
+import model.entities.Department;
 
 public final class App {
 
@@ -20,5 +21,10 @@ public final class App {
 
         System.out.println("=== TEST 1: seller findById ===");
         System.out.println(sellerDao.findById(3));
+
+        System.out.println("\n=== TEST 2: seller findByDepartment ===");
+
+        sellerDao.findByDepartment(new Department(2, null)).forEach(System.out::println);
+        // System.out.println(sellerDao.findByDepartment(new Department(2, null)));
     }
 }
