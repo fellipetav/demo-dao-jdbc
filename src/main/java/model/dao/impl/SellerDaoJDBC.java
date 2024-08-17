@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.mysql.cj.protocol.Resultset;
-
 import java.util.HashMap;
 
 import db.DB;
@@ -103,7 +101,7 @@ public class SellerDaoJDBC implements SellerDao {
 
             preparedStatement.setInt(1, id);
             int rowsAffected = preparedStatement.executeUpdate();
-            
+
             if (rowsAffected == 0) {
                 throw new DbException("Error: this id doesn't exist.");
             } else {
