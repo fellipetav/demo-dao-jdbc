@@ -50,5 +50,8 @@ public final class App {
         seller.setBaseSalary(4000.00);
         sellerDao.update(seller);
         System.out.println(seller);
+
+        System.out.println("\n=== TEST 6: seller delete ===");
+        sellerDao.deleteById(8);
     }
 }

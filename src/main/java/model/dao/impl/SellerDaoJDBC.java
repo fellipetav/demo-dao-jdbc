@@ -56,11 +56,14 @@ public class SellerDaoJDBC implements SellerDao {
                 if (resultSet.next()) {
                     object.setId(resultSet.getInt(1));
                 }
+                DB.closeResultSet(resultSet);
             } else {
                 throw new DbException("Unexpected error while inserting seller.");
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(preparedStatement);
         }
     }
 
@@ -69,9 +72,9 @@ public class SellerDaoJDBC implements SellerDao {
         PreparedStatement prepStat = null;
         try {
             prepStat = connection.prepareStatement(
-                "UPDATE seller "
-                + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
-                + "WHERE Id = ?");
+                    "UPDATE seller "
+                            + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                            + "WHERE Id = ?");
 
             prepStat.setString(1, object.getName());
             prepStat.setString(2, object.getEmail());
@@ -84,13 +87,32 @@ public class SellerDaoJDBC implements SellerDao {
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(prepStat);
         }
     }
 
     @Override
-    public void deleteById(Seller object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    public void deleteById(Integer id) {
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    "DELETE FROM seller "
+                            + "WHERE Id = ?");
+
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+            
+            if (rowsAffected == 0) {
+                throw new DbException("Error: this id doesn't exist.");
+            } else {
+                System.out.println("Deletion completed.");
+            }
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
     }
 
     @Override
