@@ -42,7 +42,13 @@ public final class App {
                 new Date(),
                 2000.00,
                 department);
-        sellerDao.insert(seller);
-        System.out.println("Seller was inserted. Id = " + seller.getId());
+        // sellerDao.insert(seller);
+        // System.out.println("Seller was inserted. Id = " + seller.getId());
+
+        System.out.println("\n=== TEST 5: seller update ===");
+        seller = sellerDao.findById(9);
+        seller.setBaseSalary(4000.00);
+        sellerDao.update(seller);
+        System.out.println(seller);
     }
 }
